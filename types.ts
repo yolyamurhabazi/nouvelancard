@@ -2,6 +2,7 @@ export interface CardState {
   image: string | null;
   year: string;
   date: string;
+  message: string;
   backgroundColor: string;
   accentColor: string;
   orientation: 'landscape' | 'portrait';

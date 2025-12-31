@@ -157,6 +157,7 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
           >
             HAPPY<br/>NEW YEAR
           </h1>
+          
           <p 
             className="font-montserrat text-white tracking-[0.2em] font-light mt-4"
             style={{
@@ -165,6 +166,18 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
           >
             {cardState.year} NEW YEAR PARTY
           </p>
+
+          {/* Custom Wish/Message */}
+          {cardState.message && (
+             <p 
+               className="font-montserrat text-white/90 italic font-light mt-4 max-w-md mx-auto leading-relaxed"
+               style={{
+                  fontSize: isLandscape ? 'clamp(10px,1.2vw,16px)' : 'clamp(10px, 3vw, 14px)'
+               }}
+             >
+               "{cardState.message}"
+             </p>
+          )}
       </div>
 
 

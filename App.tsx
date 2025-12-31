@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { toPng } from 'html-to-image';
-import { Download, Share2, AlertCircle, Smartphone, Monitor, RotateCcw, X, Link as LinkIcon, Mail } from 'lucide-react';
+import { Download, Share2, AlertCircle, Smartphone, Monitor, RotateCcw, X, Link as LinkIcon, Mail, MessageSquareQuote } from 'lucide-react';
 import CardCanvas from './components/CardCanvas';
 import { CardState } from './types';
 
@@ -34,8 +34,9 @@ function App() {
 
   const defaultState: CardState = {
     image: null,
-    year: '2025',
-    date: '31.12.2024',
+    year: '2026',
+    date: '31.12.2025',
+    message: 'Que cette année vous apporte joie et prospérité',
     backgroundColor: '#132A13',
     accentColor: '#FDB813',
     orientation: 'landscape'
@@ -48,7 +49,7 @@ function App() {
     const embedFonts = async () => {
       try {
         // 1. Fetch the CSS from Google Fonts
-        const url = 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;700&display=swap';
+        const url = 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;700&display=swap';
         const cssResponse = await fetch(url);
         let cssText = await cssResponse.text();
 
@@ -91,7 +92,7 @@ function App() {
         console.error("Font embedding failed", e);
         // Fallback for live display
         const link = document.createElement('link');
-        link.href = 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;700&display=swap';
+        link.href = 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;700&display=swap';
         link.rel = 'stylesheet';
         document.head.appendChild(link);
       }
@@ -232,7 +233,8 @@ function App() {
         backgroundColor: defaultState.backgroundColor,
         accentColor: defaultState.accentColor,
         orientation: defaultState.orientation,
-        date: defaultState.date
+        date: defaultState.date,
+        message: defaultState.message
     }));
   };
 
@@ -241,7 +243,7 @@ function App() {
       
       {/* Header & Controls */}
       <div className="w-full max-w-5xl mb-6 text-center z-50">
-         <h1 className="font-bebas text-4xl md:text-5xl text-[#FDB813] mb-2 tracking-wide drop-shadow-lg">New Year Card Generator</h1>
+         <h1 className="font-bebas text-4xl md:text-5xl text-[#FDB813] mb-2 tracking-wide drop-shadow-lg">New Year Card Generator {cardState.year}</h1>
          
          {/* Customization Controls */}
          <div className="mt-6 p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 flex flex-wrap justify-center gap-6 items-center mx-auto w-fit">
@@ -286,6 +288,23 @@ function App() {
                     value={cardState.date}
                     onChange={(e) => setCardState(prev => ({ ...prev, date: e.target.value }))}
                     className="bg-black/40 border border-white/20 rounded-lg px-2 py-2 text-white text-sm font-bebas tracking-wide w-24 text-center focus:outline-none focus:border-[#FDB813] transition-colors"
+                />
+             </div>
+
+            <div className="w-px h-10 bg-white/10 hidden sm:block"></div>
+
+            {/* Message Input */}
+             <div className="flex flex-col items-center gap-1">
+                <label htmlFor="card-message" className="text-xs text-gray-400 uppercase font-bold tracking-wider flex items-center gap-1">
+                  <MessageSquareQuote size={10} /> Voeux
+                </label>
+                <input 
+                    id="card-message"
+                    type="text" 
+                    value={cardState.message}
+                    onChange={(e) => setCardState(prev => ({ ...prev, message: e.target.value }))}
+                    placeholder="Vos vœux..."
+                    className="bg-black/40 border border-white/20 rounded-lg px-2 py-2 text-white text-sm tracking-wide w-32 md:w-48 text-left focus:outline-none focus:border-[#FDB813] transition-colors overflow-hidden text-ellipsis"
                 />
              </div>
 
