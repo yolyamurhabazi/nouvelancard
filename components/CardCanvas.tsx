@@ -94,7 +94,7 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
         className={`absolute z-10 flex items-center justify-center transition-all duration-500 ${
           isLandscape 
             ? 'left-[10%] top-[20%] bottom-[20%] w-[35%]' 
-            : 'top-[18%] left-1/2 -translate-x-1/2 w-[65%] h-[40%]'
+            : 'top-[15%] left-1/2 -translate-x-1/2 w-[65%] h-[40%]'
         }`}
       >
          <div className="relative w-full h-full transform -rotate-6 hover:scale-105 transition-transform duration-300 ease-out">
@@ -145,14 +145,14 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
         className={`absolute z-20 flex flex-col transition-all duration-500 ${
           isLandscape 
             ? 'right-[8%] top-[50%] -translate-y-1/2 w-[50%] items-end text-right' 
-            : 'bottom-[18%] left-1/2 -translate-x-1/2 w-[90%] items-center text-center'
+            : 'top-[57%] left-1/2 -translate-x-1/2 w-[90%] items-center text-center'
         }`}
       >
           <h1 
             className="font-bebas leading-[0.85] drop-shadow-lg"
             style={{ 
               color: cardState.accentColor,
-              fontSize: isLandscape ? 'clamp(60px,10vw,140px)' : 'clamp(60px, 15vw, 100px)'
+              fontSize: isLandscape ? 'clamp(60px,10vw,140px)' : 'clamp(50px, 12vw, 90px)'
             }}
           >
             HAPPY<br/>NEW YEAR
@@ -161,7 +161,7 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
           <p 
             className="font-montserrat text-white tracking-[0.2em] font-light mt-4"
             style={{
-              fontSize: isLandscape ? 'clamp(16px,2vw,30px)' : 'clamp(14px, 4vw, 20px)'
+              fontSize: isLandscape ? 'clamp(16px,2vw,30px)' : 'clamp(12px, 3.5vw, 18px)'
             }}
           >
             {cardState.year} NEW YEAR PARTY
@@ -170,7 +170,7 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
           {/* Custom Wish/Message */}
           {cardState.message && (
              <p 
-               className="font-montserrat text-white/90 italic font-light mt-4 max-w-md mx-auto leading-relaxed"
+               className="font-montserrat text-white/90 italic font-light mt-3 max-w-md mx-auto leading-relaxed"
                style={{
                   fontSize: isLandscape ? 'clamp(10px,1.2vw,16px)' : 'clamp(10px, 3vw, 14px)'
                }}
