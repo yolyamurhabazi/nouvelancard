@@ -21,8 +21,9 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
   const bgAccentStyle = { backgroundColor: cardState.accentColor };
   const borderAccentStyle = { borderColor: cardState.accentColor };
 
+  // Responsive typography using clamp to prevent collisions on small screens
   const titleTextStyle: React.CSSProperties = {
-    fontSize: 'clamp(50px, 12vw, 90px)',
+    fontSize: 'clamp(38px, 11vw, 90px)',
     backgroundImage: `linear-gradient(180deg, #ffffff 10%, ${cardState.accentColor} 50%, ${cardState.accentColor} 100%)`,
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
@@ -84,31 +85,31 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
 
 
       {/* --- Header Content --- */}
-      <div className="absolute top-[6%] left-[5%] flex items-center gap-2 z-20">
+      <div className="absolute top-[5%] left-[5%] flex items-center gap-2 z-20">
          <div className="flex flex-col items-start justify-center">
              <div className="flex items-center gap-1">
-                <StarBurstIcon className="w-5 h-5 text-white" />
-                <span className="font-bebas text-xl tracking-widest leading-none">NEWYEAR</span>
+                <StarBurstIcon className="w-4 h-4 md:w-5 md:h-5 text-white" />
+                <span className="font-bebas tracking-widest leading-none whitespace-nowrap" style={{ fontSize: 'clamp(14px, 5vw, 22px)' }}>NOUVELLE ANNÉE</span>
              </div>
-             <span className="font-bebas text-xl tracking-widest leading-none ml-6">PARTY</span>
          </div>
       </div>
 
-      <div className="absolute top-[6%] right-[5%] flex items-center gap-3 z-20">
-         <div className="bg-white rounded-full p-1.5 w-7 h-7 flex items-center justify-center shadow-lg" style={{ color: cardState.backgroundColor }}>
-            <GiftIcon className="w-4 h-4" />
+      <div className="absolute top-[5%] right-[5%] flex items-center gap-2 md:gap-3 z-20">
+         <div className="bg-white rounded-full p-1.5 w-6 h-6 md:w-7 md:h-7 flex items-center justify-center shadow-lg" style={{ color: cardState.backgroundColor }}>
+            <GiftIcon className="w-3 h-3 md:w-4 md:h-4" />
          </div>
-         <div className="bg-white rounded-full p-1.5 w-7 h-7 flex items-center justify-center shadow-lg" style={{ color: cardState.backgroundColor }}>
-            <BellIcon className="w-4 h-4" />
+         <div className="bg-white rounded-full p-1.5 w-6 h-6 md:w-7 md:h-7 flex items-center justify-center shadow-lg" style={{ color: cardState.backgroundColor }}>
+            <BellIcon className="w-3 h-3 md:w-4 md:h-4" />
          </div>
-         <span className="font-montserrat font-semibold text-xs md:text-sm tracking-wide shadow-black drop-shadow-md hidden sm:inline">Celebration</span>
+         {/* Hidden on very small screens to save space */}
+         <span className="font-montserrat font-semibold text-xs md:text-sm tracking-wide shadow-black drop-shadow-md hidden min-[350px]:inline">Celebration</span>
       </div>
 
 
       {/* --- Main Content Area --- */}
       
       {/* 1. Image Card Section */}
-      <div className="absolute z-10 flex items-center justify-center transition-all duration-500 top-[15%] left-1/2 -translate-x-1/2 w-[65%] h-[40%]">
+      <div className="absolute z-10 flex items-center justify-center transition-all duration-500 top-[14%] left-1/2 -translate-x-1/2 w-[65%] h-[40%]">
          <div className="relative w-full h-full transform -rotate-6 hover:scale-105 transition-transform duration-300 ease-out">
             
             {/* The Accent Color Card Background */}
@@ -136,14 +137,14 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
                   />
                 ) : (
                   <div className="flex flex-col items-center justify-center opacity-80 p-4 text-center" style={textAccentStyle}>
-                      <CameraIcon className="w-12 h-12 mb-2" />
-                      <span className="font-montserrat font-bold text-sm uppercase">Upload Photo</span>
+                      <CameraIcon className="w-10 h-10 md:w-12 md:h-12 mb-2" />
+                      <span className="font-montserrat font-bold text-xs md:text-sm uppercase">Upload Photo</span>
                   </div>
                 )}
                 
                 {/* Hover Overlay */}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                  <span className="text-white text-xs font-bold uppercase tracking-wider border border-white px-3 py-1 rounded-full">Change</span>
+                  <span className="text-white text-[10px] md:text-xs font-bold uppercase tracking-wider border border-white px-3 py-1 rounded-full backdrop-blur-sm">CHANGEMENT</span>
                 </div>
             </div>
 
@@ -153,7 +154,7 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
       </div>
 
       {/* 2. Typography Section with Crystal Effects */}
-      <div className="absolute z-20 flex flex-col transition-all duration-500 top-[57%] left-1/2 -translate-x-1/2 w-[90%] items-center text-center">
+      <div className="absolute z-20 flex flex-col transition-all duration-500 top-[56%] left-1/2 -translate-x-1/2 w-[95%] items-center text-center">
           
           <div className="relative">
              {/* Decorative 'Crystal' shapes behind the text */}
@@ -168,17 +169,17 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
              {/* Main Text with Crystal Gradient & Glow & Stars */}
              {/* The 'notranslate' class and translate='no' attribute ensure the browser does not attempt to translate this artistic text */}
              <div className="flex flex-col items-center justify-center notranslate" translate="no">
-                <div className="flex items-center gap-4 translate-x-[-10px]">
+                <div className="flex items-center gap-2 md:gap-4 translate-x-[-5px] md:translate-x-[-10px]">
                     <StarIcon 
-                      className="w-6 h-6 md:w-8 md:h-8" 
+                      className="w-5 h-5 md:w-8 md:h-8" 
                       style={{ filter: `drop-shadow(0 0 4px ${cardState.accentColor})` }} 
                     />
                     <h1 className="font-bebas relative z-10" style={titleTextStyle}>BONNE</h1>
                 </div>
-                <div className="flex items-center gap-4 translate-x-[10px]">
+                <div className="flex items-center gap-2 md:gap-4 translate-x-[5px] md:translate-x-[10px]">
                     <h1 className="font-bebas relative z-10" style={titleTextStyle}>ANNÉE</h1>
                     <StarIcon 
-                      className="w-6 h-6 md:w-8 md:h-8" 
+                      className="w-5 h-5 md:w-8 md:h-8" 
                       style={{ filter: `drop-shadow(0 0 4px ${cardState.accentColor})` }} 
                     />
                 </div>
@@ -186,9 +187,9 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
           </div>
           
           <p 
-            className="font-montserrat text-white tracking-[0.2em] font-light mt-4 drop-shadow-md"
+            className="font-montserrat text-white tracking-[0.2em] font-light mt-3 md:mt-4 drop-shadow-md whitespace-nowrap"
             style={{
-              fontSize: 'clamp(12px, 3.5vw, 18px)'
+              fontSize: 'clamp(10px, 3vw, 18px)'
             }}
           >
             BONNE ANNÉE {cardState.year}
@@ -197,9 +198,9 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
           {/* Custom Wish/Message */}
           {cardState.message && (
              <p 
-               className="font-montserrat text-white/90 italic font-light mt-3 max-w-md mx-auto leading-relaxed drop-shadow-md"
+               className="font-montserrat text-white/90 italic font-light mt-2 md:mt-3 max-w-[90%] mx-auto leading-relaxed drop-shadow-md"
                style={{
-                  fontSize: 'clamp(10px, 3vw, 14px)'
+                  fontSize: 'clamp(9px, 2.8vw, 14px)'
                }}
              >
                "{cardState.message}"
@@ -209,19 +210,24 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
 
 
       {/* --- Footer Content --- */}
-      <div className="absolute left-[5%] z-20 bottom-[2%]">
-         <span className="font-montserrat font-bold text-sm md:text-base tracking-wider opacity-90 uppercase drop-shadow-md">Best wishes for the new year</span>
+      <div className="absolute left-[5%] z-20 bottom-[3%] max-w-[55%]">
+         <span 
+            className="font-montserrat font-bold tracking-wider opacity-90 uppercase drop-shadow-md leading-tight block"
+            style={{ fontSize: 'clamp(8px, 2.5vw, 14px)' }}
+         >
+            Meilleurs vœux
+         </span>
       </div>
 
-      <div className="absolute right-[5%] flex items-center gap-3 z-20 bottom-[4%]">
+      <div className="absolute right-[5%] flex items-center gap-2 md:gap-3 z-20 bottom-[3%]">
          {/* Ring decoration */}
          <div className="w-3 h-3 md:w-4 md:h-4 border-2 rounded-full" style={borderAccentStyle}></div>
          {/* Solid dot */}
-         <div className="w-8 h-8 md:w-10 md:h-10 rounded-full absolute -left-6 -top-4 -z-10 opacity-80" style={bgAccentStyle}></div>
+         <div className="w-8 h-8 md:w-10 md:h-10 rounded-full absolute -left-5 md:-left-6 -top-3 md:-top-4 -z-10 opacity-80" style={bgAccentStyle}></div>
          
-         <GiftIcon className="w-6 h-6 md:w-8 md:h-8 mb-1" style={textAccentStyle} />
+         <GiftIcon className="w-5 h-5 md:w-8 md:h-8 mb-1" style={textAccentStyle} />
          
-         <span className="font-bebas text-3xl md:text-5xl tracking-wide drop-shadow-lg" style={textAccentStyle}>{cardState.date}</span>
+         <span className="font-bebas tracking-wide drop-shadow-lg" style={{ ...textAccentStyle, fontSize: 'clamp(28px, 8vw, 48px)' }}>{cardState.date}</span>
       </div>
 
     </div>
