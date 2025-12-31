@@ -1,3 +1,5 @@
+import { CSSProperties } from 'react';
+
 export interface CardState {
   image: string | null;
   year: string;
@@ -10,5 +12,5 @@ export interface CardState {
 
 export interface DecorationProps {
   className?: string;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 }
