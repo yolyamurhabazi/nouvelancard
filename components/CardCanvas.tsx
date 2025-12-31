@@ -141,17 +141,37 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
          </div>
       </div>
 
-      {/* 2. Typography Section */}
+      {/* 2. Typography Section with Crystal Effects */}
       <div className="absolute z-20 flex flex-col transition-all duration-500 top-[57%] left-1/2 -translate-x-1/2 w-[90%] items-center text-center">
-          <h1 
-            className="font-bebas leading-[0.85] drop-shadow-xl"
-            style={{ 
-              color: cardState.accentColor,
-              fontSize: 'clamp(50px, 12vw, 90px)'
-            }}
-          >
-            HAPPY<br/>NEW YEAR
-          </h1>
+          
+          <div className="relative">
+             {/* Decorative 'Crystal' shapes behind the text */}
+             <div 
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] rotate-45 border border-white/20 backdrop-blur-[1px] -z-10"
+                style={{ boxShadow: `0 0 20px ${cardState.accentColor}40` }}
+             ></div>
+             <div 
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[60%] -rotate-12 border border-white/10 -z-10"
+             ></div>
+
+             {/* Main Text with Crystal Gradient & Glow */}
+             <h1 
+                className="font-bebas leading-[0.85] relative z-10"
+                style={{ 
+                  fontSize: 'clamp(50px, 12vw, 90px)',
+                  // Crystal/Metal Gradient Effect
+                  backgroundImage: `linear-gradient(180deg, #ffffff 10%, ${cardState.accentColor} 50%, ${cardState.accentColor} 100%)`,
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  color: 'transparent',
+                  // Strong Glow / Illumination (Reduced as per request)
+                  filter: `drop-shadow(0 0 8px ${cardState.accentColor}) drop-shadow(0 0 2px rgba(255,255,255,0.4))`
+                }}
+              >
+                HAPPY<br/>NEW YEAR
+              </h1>
+          </div>
           
           <p 
             className="font-montserrat text-white tracking-[0.2em] font-light mt-4 drop-shadow-md"
