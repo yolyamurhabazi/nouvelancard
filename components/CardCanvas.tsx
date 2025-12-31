@@ -179,7 +179,7 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
               fontSize: isLandscape ? 'clamp(16px,2vw,30px)' : 'clamp(12px, 3.5vw, 18px)'
             }}
           >
-             {cardState.year}
+            NEW YEAR {cardState.year}
           </p>
 
           {/* Custom Wish/Message */}
