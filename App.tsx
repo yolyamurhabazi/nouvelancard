@@ -35,7 +35,7 @@ function App() {
   const defaultState: CardState = {
     image: null,
     year: '2026',
-    date: '31.12.2025',
+    date: '2026',
     message: 'Que cette année vous apporte joie et prospérité',
     backgroundColor: '#132A13',
     accentColor: '#FDB813',

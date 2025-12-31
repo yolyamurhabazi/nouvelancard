@@ -207,6 +207,8 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
          {/* Solid dot */}
          <div className="w-8 h-8 md:w-10 md:h-10 rounded-full absolute -left-6 -top-4 -z-10 opacity-80" style={bgAccentStyle}></div>
          
+         <GiftIcon className="w-6 h-6 md:w-8 md:h-8 mb-1" style={textAccentStyle} />
+         
          <span className="font-bebas text-3xl md:text-5xl tracking-wide drop-shadow-lg" style={textAccentStyle}>{cardState.date}</span>
       </div>
 
