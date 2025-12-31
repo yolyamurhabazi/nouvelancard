@@ -241,7 +241,7 @@ function App() {
       
       {/* Header & Controls */}
       <div className="w-full max-w-5xl mb-6 text-center z-50">
-         <h1 className="font-bebas text-2xl md:text-3xl text-[#FDB813] mb-2 tracking-wide drop-shadow-lg text-center">New Year Card {cardState.year}</h1>
+         <h1 className="font-bebas text-2xl md:text-3xl text-[#FDB813] mb-2 tracking-wide drop-shadow-lg text-center">Carte de vœux {cardState.year}</h1>
          
          {/* Customization Controls */}
          <div className="mt-6 p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 flex flex-wrap justify-center gap-6 items-center mx-auto w-fit">
