@@ -338,46 +338,47 @@ function App() {
         />
       </div>
 
-      {/* Signature Footer */}
-      <div className="w-full text-center pb-32 opacity-30 text-[10px] md:text-xs font-montserrat uppercase tracking-[0.2em] text-white">
-         Tout droit reserver a yolya murhabazi aubin julien
-      </div>
-
       {/* Fixed Bottom Action Bar */}
       <div 
-        className="fixed bottom-0 left-0 right-0 backdrop-blur-md border-t p-4 flex justify-center gap-12 z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]"
+        className="fixed bottom-0 left-0 right-0 backdrop-blur-md border-t px-4 py-2 flex items-center justify-between z-50 shadow-[0_-10px_40px_rgba(0,0,0,0.5)]"
         style={{ 
             backgroundColor: `${cardState.backgroundColor}F2`, // 95% opacity hex
             borderColor: `${cardState.accentColor}33` // 20% opacity hex
         }}
       >
-        <button 
-          onClick={downloadCard}
-          disabled={loading}
-          className="group flex flex-col items-center gap-2 text-white hover:opacity-100 transition-all duration-300 disabled:opacity-50"
-          style={{ '--hover-color': cardState.accentColor } as React.CSSProperties}
-        >
-          <div 
-            className="bg-white/5 p-3 rounded-2xl transition-all ring-1 ring-white/10 group-hover:text-black group-hover:shadow-[0_0_15px_rgba(255,255,255,0.3)]"
-          >
-             {loading ? (
-                <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-             ) : (
-                <Download size={24} />
-             )}
-          </div>
-          <span className="font-bebas text-lg tracking-widest">Download</span>
-        </button>
+        <div className="flex items-center gap-3">
+            <button 
+              onClick={downloadCard}
+              disabled={loading}
+              className="group flex items-center gap-2 text-white hover:opacity-100 transition-all duration-300 disabled:opacity-50"
+              title="Download"
+            >
+              <div 
+                className="bg-white/5 p-2 rounded-xl transition-all ring-1 ring-white/10 group-hover:text-black group-hover:bg-white group-hover:shadow-[0_0_15px_rgba(255,255,255,0.3)]"
+              >
+                 {loading ? (
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                 ) : (
+                    <Download size={18} />
+                 )}
+              </div>
+            </button>
 
-        <button 
-          onClick={handleShareClick}
-          className="group flex flex-col items-center gap-2 text-white transition-all duration-300"
-        >
-          <div className="bg-white/5 p-3 rounded-2xl ring-1 ring-white/10 group-hover:bg-white/20">
-            <Share2 size={24} />
-          </div>
-          <span className="font-bebas text-lg tracking-widest">Share</span>
-        </button>
+            <button 
+              onClick={handleShareClick}
+              className="group flex items-center gap-2 text-white transition-all duration-300"
+              title="Share"
+            >
+              <div className="bg-white/5 p-2 rounded-xl ring-1 ring-white/10 group-hover:bg-white/20">
+                <Share2 size={18} />
+              </div>
+            </button>
+        </div>
+
+        {/* Signature */}
+        <div className="text-[10px] text-white italic opacity-70 text-right font-montserrat leading-tight max-w-[60%]">
+           Tout droit reserver a<br/>yolya murhabazi aubin julien
+        </div>
       </div>
 
       {/* Share Modal */}
