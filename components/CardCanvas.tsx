@@ -197,7 +197,7 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
 
 
       {/* --- Footer Content --- */}
-      <div className={`absolute left-[5%] z-20 ${isLandscape ? 'bottom-[6%]' : 'bottom-[4%]'}`}>
+      <div className={`absolute left-[5%] z-20 ${isLandscape ? 'bottom-[6%]' : 'bottom-[2%]'}`}>
          <span className="font-montserrat font-bold text-sm md:text-base tracking-wider opacity-90 uppercase drop-shadow-md">Best wishes for the new year</span>
       </div>
 
