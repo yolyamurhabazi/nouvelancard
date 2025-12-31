@@ -21,6 +21,17 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
   const bgAccentStyle = { backgroundColor: cardState.accentColor };
   const borderAccentStyle = { borderColor: cardState.accentColor };
 
+  const titleTextStyle: React.CSSProperties = {
+    fontSize: 'clamp(50px, 12vw, 90px)',
+    backgroundImage: `linear-gradient(180deg, #ffffff 10%, ${cardState.accentColor} 50%, ${cardState.accentColor} 100%)`,
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    backgroundClip: 'text',
+    color: 'transparent',
+    filter: `drop-shadow(0 0 8px ${cardState.accentColor}) drop-shadow(0 0 2px rgba(255,255,255,0.4))`,
+    lineHeight: 0.85,
+  };
+
   return (
     <div 
       className="relative shadow-2xl overflow-hidden select-none text-white transition-all duration-500 ease-in-out w-full max-w-[500px] aspect-[9/16]"
@@ -154,23 +165,23 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
                 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[60%] -rotate-12 border border-white/10 -z-10"
              ></div>
 
-             {/* Main Text with Crystal Gradient & Glow */}
-             <h1 
-                className="font-bebas leading-[0.85] relative z-10"
-                style={{ 
-                  fontSize: 'clamp(50px, 12vw, 90px)',
-                  // Crystal/Metal Gradient Effect
-                  backgroundImage: `linear-gradient(180deg, #ffffff 10%, ${cardState.accentColor} 50%, ${cardState.accentColor} 100%)`,
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  color: 'transparent',
-                  // Strong Glow / Illumination (Reduced as per request)
-                  filter: `drop-shadow(0 0 8px ${cardState.accentColor}) drop-shadow(0 0 2px rgba(255,255,255,0.4))`
-                }}
-              >
-                HAPPY<br/>NEW YEAR
-              </h1>
+             {/* Main Text with Crystal Gradient & Glow & Stars */}
+             <div className="flex flex-col items-center justify-center">
+                <div className="flex items-center gap-4 translate-x-[-10px]">
+                    <StarIcon 
+                      className="w-6 h-6 md:w-8 md:h-8" 
+                      style={{ filter: `drop-shadow(0 0 4px ${cardState.accentColor})` }} 
+                    />
+                    <h1 className="font-bebas relative z-10" style={titleTextStyle}>HAPPY</h1>
+                </div>
+                <div className="flex items-center gap-4 translate-x-[10px]">
+                    <h1 className="font-bebas relative z-10" style={titleTextStyle}>NEW YEAR</h1>
+                    <StarIcon 
+                      className="w-6 h-6 md:w-8 md:h-8" 
+                      style={{ filter: `drop-shadow(0 0 4px ${cardState.accentColor})` }} 
+                    />
+                </div>
+             </div>
           </div>
           
           <p 
