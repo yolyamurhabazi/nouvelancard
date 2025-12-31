@@ -145,19 +145,26 @@ function App() {
   }, [cardState]);
 
   const shareCard = async () => {
+    const copyToClipboard = () => {
+      navigator.clipboard.writeText(window.location.href)
+        .then(() => alert("Lien copié ! Partagez-le avec vos amis. / Link copied!"))
+        .catch(() => alert("Impossible de copier le lien. / Could not copy link."));
+    };
+
     if (navigator.share) {
       try {
         await navigator.share({
           title: 'Happy New Year Card',
-          text: 'Check out my New Year card!',
+          text: 'Créez votre propre carte de vœux ici ! / Create your own card here!',
           url: window.location.href,
         });
       } catch (err) {
-        console.log('Error sharing:', err);
+        console.warn('Native share failed, falling back to clipboard:', err);
+        // Fallback to clipboard if share fails (e.g. invalid URL in some environments)
+        copyToClipboard();
       }
     } else {
-      navigator.clipboard.writeText(window.location.href);
-      alert("Link copied to clipboard!");
+      copyToClipboard();
     }
   };
 
@@ -166,7 +173,8 @@ function App() {
         ...prev,
         backgroundColor: defaultState.backgroundColor,
         accentColor: defaultState.accentColor,
-        orientation: defaultState.orientation
+        orientation: defaultState.orientation,
+        date: defaultState.date
     }));
   };
 
@@ -183,7 +191,7 @@ function App() {
             {/* Color Controls */}
             <div className="flex items-center gap-4">
                <div className="flex flex-col items-center gap-1">
-                  <label htmlFor="bg-color" className="text-xs text-gray-400 uppercase font-bold tracking-wider">Background</label>
+                  <label htmlFor="bg-color" className="text-xs text-gray-400 uppercase font-bold tracking-wider">Bg</label>
                   <div className="relative overflow-hidden w-10 h-10 rounded-full border-2 border-white/20 cursor-pointer shadow-lg hover:scale-110 transition-transform">
                     <input 
                         id="bg-color"
@@ -196,7 +204,7 @@ function App() {
                </div>
 
                <div className="flex flex-col items-center gap-1">
-                  <label htmlFor="accent-color" className="text-xs text-gray-400 uppercase font-bold tracking-wider">Text / Accent</label>
+                  <label htmlFor="accent-color" className="text-xs text-gray-400 uppercase font-bold tracking-wider">Text</label>
                   <div className="relative overflow-hidden w-10 h-10 rounded-full border-2 border-white/20 cursor-pointer shadow-lg hover:scale-110 transition-transform">
                     <input 
                         id="accent-color"
@@ -208,6 +216,20 @@ function App() {
                   </div>
                </div>
             </div>
+
+            <div className="w-px h-10 bg-white/10 hidden sm:block"></div>
+            
+            {/* Date Input */}
+             <div className="flex flex-col items-center gap-1">
+                <label htmlFor="card-date" className="text-xs text-gray-400 uppercase font-bold tracking-wider">Date</label>
+                <input 
+                    id="card-date"
+                    type="text" 
+                    value={cardState.date}
+                    onChange={(e) => setCardState(prev => ({ ...prev, date: e.target.value }))}
+                    className="bg-black/40 border border-white/20 rounded-lg px-2 py-2 text-white text-sm font-bebas tracking-wide w-24 text-center focus:outline-none focus:border-[#FDB813] transition-colors"
+                />
+             </div>
 
             <div className="w-px h-10 bg-white/10 hidden sm:block"></div>
 
@@ -256,6 +278,11 @@ function App() {
           cardState={cardState} 
           onImageUpload={handleImageUpload} 
         />
+      </div>
+
+      {/* Signature Footer */}
+      <div className="w-full text-center pb-32 opacity-30 text-[10px] md:text-xs font-montserrat uppercase tracking-[0.2em] text-white">
+         Tout droit reserver a yolya murhabazi aubin julien
       </div>
 
       {/* Fixed Bottom Action Bar */}

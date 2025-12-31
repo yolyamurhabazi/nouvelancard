@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { StarIcon, StarBurstIcon, FacebookIcon, InstagramIcon, CameraIcon } from './Icons';
+import { StarIcon, StarBurstIcon, GiftIcon, BellIcon, CameraIcon } from './Icons';
 import { CardState } from '../types';
 
 interface CardCanvasProps {
@@ -78,12 +78,12 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
 
       <div className="absolute top-[6%] right-[5%] flex items-center gap-3 z-20">
          <div className="bg-white rounded-full p-1.5 w-7 h-7 flex items-center justify-center" style={{ color: cardState.backgroundColor }}>
-            <FacebookIcon className="w-4 h-4" />
+            <GiftIcon className="w-4 h-4" />
          </div>
          <div className="bg-white rounded-full p-1.5 w-7 h-7 flex items-center justify-center" style={{ color: cardState.backgroundColor }}>
-            <InstagramIcon className="w-4 h-4" />
+            <BellIcon className="w-4 h-4" />
          </div>
-         <span className={`font-montserrat font-semibold text-xs md:text-sm tracking-wide ${!isLandscape && 'hidden sm:inline'}`}>newyearparty.official</span>
+         <span className={`font-montserrat font-semibold text-xs md:text-sm tracking-wide ${!isLandscape && 'hidden sm:inline'}`}>Celebration</span>
       </div>
 
 
@@ -170,7 +170,7 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
 
       {/* --- Footer Content --- */}
       <div className={`absolute left-[5%] z-20 ${isLandscape ? 'bottom-[6%]' : 'bottom-[4%]'}`}>
-         <span className="font-montserrat font-bold text-sm md:text-base tracking-wider opacity-90">www.new-yearpar.ty</span>
+         <span className="font-montserrat font-bold text-sm md:text-base tracking-wider opacity-90 uppercase">Best wishes for the new year</span>
       </div>
 
       <div className={`absolute right-[5%] flex items-center gap-3 z-20 ${isLandscape ? 'bottom-[6%]' : 'bottom-[4%]'}`}>
