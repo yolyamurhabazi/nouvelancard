@@ -129,10 +129,11 @@ function App() {
       // Small delay to ensure rendering is stable
       await new Promise(resolve => setTimeout(resolve, 100));
 
-      // Attempt 1: Full quality with embedded fonts
+      // Attempt 1: Full HD quality with embedded fonts
       const dataUrl = await toPng(cardRef.current, { 
         cacheBust: false, // Disabled to prevent blob URL issues
-        pixelRatio: 2,
+        pixelRatio: 4, // 4x scale for crisp HD quality
+        quality: 1.0,
         skipAutoScale: true,
         fontEmbedCSS: fontCssRef.current || undefined, // Use our pre-fetched CSS
         filter: (node) => node.tagName !== 'LINK', // Ignore external links
@@ -148,7 +149,7 @@ function App() {
         // This relies on the browser's current render state
         const dataUrl = await toPng(cardRef.current, { 
           cacheBust: false,
-          pixelRatio: 1, // Lower resolution might help if memory is an issue
+          pixelRatio: 2, // 2x scale for decent fallback quality
           skipAutoScale: true,
           fontEmbedCSS: '', // Disable font embedding
           filter: (node) => node.tagName !== 'LINK',
