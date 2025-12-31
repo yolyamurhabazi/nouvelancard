@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { toPng } from 'html-to-image';
 import { Download, Share2, AlertCircle, Smartphone, Monitor, RotateCcw } from 'lucide-react';
 import CardCanvas from './components/CardCanvas';
@@ -9,6 +9,9 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
+  // Store the processed CSS with base64 fonts to pass to html-to-image
+  const fontCssRef = useRef<string>('');
+
   const defaultState: CardState = {
     image: null,
     year: '2025',
@@ -19,6 +22,63 @@ function App() {
   };
 
   const [cardState, setCardState] = useState<CardState>(defaultState);
+
+  // Robust Font Loading: Fetch fonts and convert to Base64 to avoid CORS issues in html-to-image
+  useEffect(() => {
+    const embedFonts = async () => {
+      try {
+        // 1. Fetch the CSS from Google Fonts
+        const url = 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;700&display=swap';
+        const cssResponse = await fetch(url);
+        let cssText = await cssResponse.text();
+
+        // 2. Find all font URLs in the CSS
+        const fontUrlMatches = cssText.match(/url\((https:\/\/[^)]+)\)/g) || [];
+        const uniqueFontUrls = new Set(
+          fontUrlMatches.map(match => match.replace(/url\(|['"]|\)/g, ''))
+        );
+
+        // 3. Fetch each font file and convert to Base64
+        for (const fontUrl of uniqueFontUrls) {
+          try {
+            const fontResponse = await fetch(fontUrl);
+            const blob = await fontResponse.blob();
+            
+            // Convert blob to base64
+            const reader = new FileReader();
+            const base64Data = await new Promise<string>((resolve) => {
+               reader.onloadend = () => resolve(reader.result as string);
+               reader.readAsDataURL(blob);
+            });
+
+            // Replace the URL in the CSS with the Data URI
+            // using split/join as a polyfill for replaceAll
+            cssText = cssText.split(fontUrl).join(base64Data);
+          } catch (fontErr) {
+            console.warn('Could not embed font:', fontUrl);
+          }
+        }
+
+        // 4. Inject the self-contained CSS into the head for live display
+        const style = document.createElement('style');
+        style.innerHTML = cssText;
+        document.head.appendChild(style);
+
+        // 5. Save it for the image generator
+        fontCssRef.current = cssText;
+
+      } catch (e) {
+        console.error("Font embedding failed", e);
+        // Fallback for live display
+        const link = document.createElement('link');
+        link.href = 'https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;700&display=swap';
+        link.rel = 'stylesheet';
+        document.head.appendChild(link);
+      }
+    };
+
+    embedFonts();
+  }, []);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -37,16 +97,48 @@ function App() {
     setLoading(true);
     setError(null);
 
-    try {
-      // Use pixelRatio 2 or 3 for high quality download
-      const dataUrl = await toPng(cardRef.current, { cacheBust: true, pixelRatio: 3 });
+    // Helper to trigger download
+    const triggerDownload = (dataUrl: string) => {
       const link = document.createElement('a');
       link.download = `happy-new-year-${cardState.year}-card.png`;
       link.href = dataUrl;
       link.click();
+    };
+
+    try {
+      // Small delay to ensure rendering is stable
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      // Attempt 1: Full quality with embedded fonts
+      const dataUrl = await toPng(cardRef.current, { 
+        cacheBust: false, // Disabled to prevent blob URL issues
+        pixelRatio: 2,
+        skipAutoScale: true,
+        fontEmbedCSS: fontCssRef.current || undefined, // Use our pre-fetched CSS
+        filter: (node) => node.tagName !== 'LINK', // Ignore external links
+      });
+      
+      triggerDownload(dataUrl);
+
     } catch (err) {
-      console.error(err);
-      setError("Failed to generate image. Please try again.");
+      console.warn("First download attempt failed. Retrying with fallback configuration...", err);
+      
+      try {
+        // Attempt 2: Simplified (no custom font embedding in the generator options)
+        // This relies on the browser's current render state
+        const dataUrl = await toPng(cardRef.current, { 
+          cacheBust: false,
+          pixelRatio: 1, // Lower resolution might help if memory is an issue
+          skipAutoScale: true,
+          fontEmbedCSS: '', // Disable font embedding
+          filter: (node) => node.tagName !== 'LINK',
+        });
+        
+        triggerDownload(dataUrl);
+      } catch (retryErr) {
+         console.error(retryErr);
+         setError("Could not generate image. Please try a different browser or device.");
+      }
     } finally {
       setLoading(false);
     }
@@ -183,13 +275,9 @@ function App() {
           <div 
             className="bg-white/5 p-3 rounded-2xl transition-all ring-1 ring-white/10 group-hover:text-black group-hover:shadow-[0_0_15px_rgba(255,255,255,0.3)]"
             style={{ 
-                // We use inline styles for hover effects in JS by detecting hover state or just relying on standard CSS for layout 
-                // and keeping simple inline styles for the button base
+               // Just relying on standard styles for simplicity to match previous aesthetic
             }}
           >
-             {/* Note: Complex hover colors with dynamic JS values are tricky in Tailwind. 
-                 Simple solution: Just use white/gold standard or standard hover classes. 
-                 Here keeping standard layout but allowing the button to look consistent. */}
              {loading ? (
                 <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
              ) : (
