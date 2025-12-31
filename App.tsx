@@ -374,7 +374,7 @@ function App() {
 
         {/* Signature */}
         <div className="text-[10px] text-white italic opacity-70 text-right font-montserrat leading-tight max-w-[60%]">
-           Tout droit reserver a<br/>yolya murhabazi aubin julien
+           « Tout droit réservé à Yolya Murhabazi, Aubin Julien »
         </div>
       </div>
 
