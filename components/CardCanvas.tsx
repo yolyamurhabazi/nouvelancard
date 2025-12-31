@@ -10,7 +10,6 @@ interface CardCanvasProps {
 
 const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUpload }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const isLandscape = cardState.orientation === 'landscape';
 
   const handleUploadClick = () => {
     fileInputRef.current?.click();
@@ -21,17 +20,10 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
   const textAccentStyle = { color: cardState.accentColor };
   const bgAccentStyle = { backgroundColor: cardState.accentColor };
   const borderAccentStyle = { borderColor: cardState.accentColor };
-  
-  // Gradient helper
-  const gradientBlobStyle = {
-    background: `linear-gradient(135deg, ${cardState.accentColor}40, transparent)`
-  };
 
   return (
     <div 
-      className={`relative shadow-2xl overflow-hidden select-none text-white transition-all duration-500 ease-in-out ${
-        isLandscape ? 'w-full max-w-5xl aspect-video' : 'w-full max-w-[500px] aspect-[9/16]'
-      }`}
+      className="relative shadow-2xl overflow-hidden select-none text-white transition-all duration-500 ease-in-out w-full max-w-[500px] aspect-[9/16]"
       style={bgStyle}
       ref={cardRef}
     >
@@ -98,20 +90,14 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
          <div className="bg-white rounded-full p-1.5 w-7 h-7 flex items-center justify-center shadow-lg" style={{ color: cardState.backgroundColor }}>
             <BellIcon className="w-4 h-4" />
          </div>
-         <span className={`font-montserrat font-semibold text-xs md:text-sm tracking-wide shadow-black drop-shadow-md ${!isLandscape && 'hidden sm:inline'}`}>Celebration</span>
+         <span className="font-montserrat font-semibold text-xs md:text-sm tracking-wide shadow-black drop-shadow-md hidden sm:inline">Celebration</span>
       </div>
 
 
       {/* --- Main Content Area --- */}
       
       {/* 1. Image Card Section */}
-      <div 
-        className={`absolute z-10 flex items-center justify-center transition-all duration-500 ${
-          isLandscape 
-            ? 'left-[10%] top-[20%] bottom-[20%] w-[35%]' 
-            : 'top-[15%] left-1/2 -translate-x-1/2 w-[65%] h-[40%]'
-        }`}
-      >
+      <div className="absolute z-10 flex items-center justify-center transition-all duration-500 top-[15%] left-1/2 -translate-x-1/2 w-[65%] h-[40%]">
          <div className="relative w-full h-full transform -rotate-6 hover:scale-105 transition-transform duration-300 ease-out">
             
             {/* The Accent Color Card Background */}
@@ -156,18 +142,12 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
       </div>
 
       {/* 2. Typography Section */}
-      <div 
-        className={`absolute z-20 flex flex-col transition-all duration-500 ${
-          isLandscape 
-            ? 'right-[8%] top-[50%] -translate-y-1/2 w-[50%] items-end text-right' 
-            : 'top-[57%] left-1/2 -translate-x-1/2 w-[90%] items-center text-center'
-        }`}
-      >
+      <div className="absolute z-20 flex flex-col transition-all duration-500 top-[57%] left-1/2 -translate-x-1/2 w-[90%] items-center text-center">
           <h1 
             className="font-bebas leading-[0.85] drop-shadow-xl"
             style={{ 
               color: cardState.accentColor,
-              fontSize: isLandscape ? 'clamp(60px,10vw,140px)' : 'clamp(50px, 12vw, 90px)'
+              fontSize: 'clamp(50px, 12vw, 90px)'
             }}
           >
             HAPPY<br/>NEW YEAR
@@ -176,7 +156,7 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
           <p 
             className="font-montserrat text-white tracking-[0.2em] font-light mt-4 drop-shadow-md"
             style={{
-              fontSize: isLandscape ? 'clamp(16px,2vw,30px)' : 'clamp(12px, 3.5vw, 18px)'
+              fontSize: 'clamp(12px, 3.5vw, 18px)'
             }}
           >
             NEW YEAR {cardState.year}
@@ -187,7 +167,7 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
              <p 
                className="font-montserrat text-white/90 italic font-light mt-3 max-w-md mx-auto leading-relaxed drop-shadow-md"
                style={{
-                  fontSize: isLandscape ? 'clamp(10px,1.2vw,16px)' : 'clamp(10px, 3vw, 14px)'
+                  fontSize: 'clamp(10px, 3vw, 14px)'
                }}
              >
                "{cardState.message}"
@@ -197,11 +177,11 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
 
 
       {/* --- Footer Content --- */}
-      <div className={`absolute left-[5%] z-20 ${isLandscape ? 'bottom-[6%]' : 'bottom-[2%]'}`}>
+      <div className="absolute left-[5%] z-20 bottom-[2%]">
          <span className="font-montserrat font-bold text-sm md:text-base tracking-wider opacity-90 uppercase drop-shadow-md">Best wishes for the new year</span>
       </div>
 
-      <div className={`absolute right-[5%] flex items-center gap-3 z-20 ${isLandscape ? 'bottom-[6%]' : 'bottom-[4%]'}`}>
+      <div className="absolute right-[5%] flex items-center gap-3 z-20 bottom-[4%]">
          {/* Ring decoration */}
          <div className="w-3 h-3 md:w-4 md:h-4 border-2 rounded-full" style={borderAccentStyle}></div>
          {/* Solid dot */}

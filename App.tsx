@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { toPng } from 'html-to-image';
-import { Download, Share2, AlertCircle, Smartphone, Monitor, RotateCcw, X, Link as LinkIcon, Mail, MessageSquareQuote } from 'lucide-react';
+import { Download, Share2, AlertCircle, RotateCcw, X, Link as LinkIcon, Mail, MessageSquareQuote } from 'lucide-react';
 import CardCanvas from './components/CardCanvas';
 import { CardState } from './types';
 
@@ -39,7 +39,6 @@ function App() {
     message: 'Que cette année vous apporte joie et prospérité',
     backgroundColor: '#132A13',
     accentColor: '#FDB813',
-    orientation: 'landscape'
   };
 
   const [cardState, setCardState] = useState<CardState>(defaultState);
@@ -232,7 +231,6 @@ function App() {
         ...prev,
         backgroundColor: defaultState.backgroundColor,
         accentColor: defaultState.accentColor,
-        orientation: defaultState.orientation,
         date: defaultState.date,
         message: defaultState.message
     }));
@@ -307,26 +305,6 @@ function App() {
                     className="bg-black/40 border border-white/20 rounded-lg px-2 py-2 text-white text-sm tracking-wide w-32 md:w-48 text-left focus:outline-none focus:border-[#FDB813] transition-colors overflow-hidden text-ellipsis"
                 />
              </div>
-
-            <div className="w-px h-10 bg-white/10 hidden sm:block"></div>
-
-            {/* Orientation Toggle */}
-            <div className="flex bg-black/40 rounded-lg p-1 border border-white/10">
-                <button 
-                   onClick={() => setCardState(prev => ({ ...prev, orientation: 'landscape' }))}
-                   className={`p-2 rounded-md transition-all ${cardState.orientation === 'landscape' ? 'bg-[#FDB813] text-black shadow-lg' : 'text-gray-400 hover:text-white'}`}
-                   title="Landscape"
-                >
-                    <Monitor size={20} />
-                </button>
-                <button 
-                   onClick={() => setCardState(prev => ({ ...prev, orientation: 'portrait' }))}
-                   className={`p-2 rounded-md transition-all ${cardState.orientation === 'portrait' ? 'bg-[#FDB813] text-black shadow-lg' : 'text-gray-400 hover:text-white'}`}
-                   title="Portrait"
-                >
-                    <Smartphone size={20} />
-                </button>
-            </div>
 
             <div className="w-px h-10 bg-white/10 hidden sm:block"></div>
 

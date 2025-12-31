@@ -7,7 +7,6 @@ export interface CardState {
   message: string;
   backgroundColor: string;
   accentColor: string;
-  orientation: 'landscape' | 'portrait';
 }
 
 export interface DecorationProps {
