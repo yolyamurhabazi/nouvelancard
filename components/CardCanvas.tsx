@@ -166,16 +166,17 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
              ></div>
 
              {/* Main Text with Crystal Gradient & Glow & Stars */}
-             <div className="flex flex-col items-center justify-center">
+             {/* The 'notranslate' class and translate='no' attribute ensure the browser does not attempt to translate this artistic text */}
+             <div className="flex flex-col items-center justify-center notranslate" translate="no">
                 <div className="flex items-center gap-4 translate-x-[-10px]">
                     <StarIcon 
                       className="w-6 h-6 md:w-8 md:h-8" 
                       style={{ filter: `drop-shadow(0 0 4px ${cardState.accentColor})` }} 
                     />
-                    <h1 className="font-bebas relative z-10" style={titleTextStyle}>HAPPY</h1>
+                    <h1 className="font-bebas relative z-10" style={titleTextStyle}>BONNE</h1>
                 </div>
                 <div className="flex items-center gap-4 translate-x-[10px]">
-                    <h1 className="font-bebas relative z-10" style={titleTextStyle}>NEW YEAR</h1>
+                    <h1 className="font-bebas relative z-10" style={titleTextStyle}>ANNÉE</h1>
                     <StarIcon 
                       className="w-6 h-6 md:w-8 md:h-8" 
                       style={{ filter: `drop-shadow(0 0 4px ${cardState.accentColor})` }} 
@@ -190,7 +191,7 @@ const CardCanvas: React.FC<CardCanvasProps> = ({ cardRef, cardState, onImageUplo
               fontSize: 'clamp(12px, 3.5vw, 18px)'
             }}
           >
-            NEW YEAR {cardState.year}
+            BONNE ANNÉE {cardState.year}
           </p>
 
           {/* Custom Wish/Message */}
